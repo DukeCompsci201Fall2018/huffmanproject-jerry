@@ -46,6 +46,7 @@ public class HuffProcessor {
 		int[] counts = readForCounts(in);
 		HuffNode root = makeTreeFromCounts(counts);
 		String[] codings = makeCodingsFromTree(root);
+		System.out.println(codings.length);
 		
 		out.writeBits(BITS_PER_INT, HUFF_TREE);
 		writeHeader(root,out);
@@ -124,7 +125,6 @@ public class HuffProcessor {
 	   while(true) {
 	      int bits = in.readBits(BITS_PER_WORD);
 	      code = encoding[bits];
-	      System.out.println(code.length());
 	      out.writeBits(code.length(), Integer.parseInt(code, 2));
 	      code = encoding[PSEUDO_EOF];
 	      out.writeBits(code.length(), Integer.parseInt(code, 2));
