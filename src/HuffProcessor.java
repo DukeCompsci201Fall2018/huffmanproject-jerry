@@ -123,9 +123,10 @@ public class HuffProcessor {
 	   String code = "";
 	   while(true) {
 	      int bits = in.readBits(BITS_PER_WORD);
+	      if (bits == -1)
+	         break;
 	      code = encoding[bits];
 	      
-	      //System.out.println(code.length());
 	      out.writeBits(code.length(), Integer.parseInt(code, 2));
 	      code = encoding[PSEUDO_EOF];
 	      out.writeBits(code.length(), Integer.parseInt(code, 2));
