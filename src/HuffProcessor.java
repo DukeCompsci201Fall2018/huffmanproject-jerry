@@ -123,7 +123,7 @@ public class HuffProcessor {
 	   String code = "";
 	   while(true) {
 	      int bits = in.readBits(BITS_PER_WORD);
-	      code = encoding[bits];
+	      code = encoding[PSEUDO_EOF];
 	      out.writeBits(code.length(), Integer.parseInt(code, 2));
 	      code = encoding[PSEUDO_EOF];
 	      out.writeBits(code.length(), Integer.parseInt(code, 2));
