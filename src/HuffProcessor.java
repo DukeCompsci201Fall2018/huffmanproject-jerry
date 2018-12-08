@@ -80,7 +80,7 @@ public class HuffProcessor {
      PriorityQueue<HuffNode> pq = new PriorityQueue<>();
      
      for(int i = 0; i < counts.length; i++) {
-        if (counts[i] > 0)
+        if (counts[i] >= 0)
            pq.add(new HuffNode(i, counts[i], null, null));
      }
      
@@ -127,6 +127,7 @@ public class HuffProcessor {
   }
   
   private void writeCompressedBits(String[] encoding, BitInputStream in, BitOutputStream out) {
+     in.reset();
      String code = "";
      while(true) {
         int bits = in.readBits(BITS_PER_WORD);
@@ -135,9 +136,10 @@ public class HuffProcessor {
         code = encoding[bits];
         
         out.writeBits(code.length(), Integer.parseInt(code, 2));
-        code = encoding[PSEUDO_EOF];
-        out.writeBits(code.length(), Integer.parseInt(code, 2));
+        
      }
+     code = encoding[PSEUDO_EOF];
+     out.writeBits(code.length(), Integer.parseInt(code, 2));
 
   }
 
